@@ -13,6 +13,7 @@ import {
   Row,
   Col,
 } from "reactstrap";
+import axios from "axios";
 import { loginUser } from "../services/user-services";
 import { doLogin } from "../auth";
 import { toast } from "react-toastify";
@@ -41,7 +42,7 @@ const Login = () => {
     });
   };
 
-  const handleFormSubmit = (event) => {
+  const handleFormSubmit = async (event) => {
     event.preventDefault();
     console.log(loginDetail);
     //validation
@@ -51,22 +52,22 @@ const Login = () => {
     }
 
     //submit the data to server to generate token
-    loginUser(loginDetail)
-      .then((data) => {
-        console.log(data);
-
-        //save the data to localstorage
-        doLogin(data, () => {
+    try {
+      const response = await axios.post(
+        `${import.meta.env.VITE_BACKEND_API_URL}/users/login`,
+        loginDetail
+      );
+      response &&
+        doLogin(response.data, () => {
           console.log("login detail is saved to localstorage");
           toast.success("Login Successfully !!");
           //redirect to dashboard
           navigate("/dashboard");
         });
-      })
-      .catch((error) => {
-        console.log(error);
-        toast.error("Something went wrong !!");
-      });
+    } catch (error) {
+      const errMessage = error.response.data.message;
+      toast.error(errMessage ? errMessage : "Something went wrong !!");
+    }
   };
   return (
     <Base>
