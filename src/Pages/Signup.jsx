@@ -19,7 +19,7 @@ import SignUp from "../assets/signup.svg";
 const Signup = () => {
   const [data, setData] = useState({
     name: "",
-    contactNumber: "",
+    phone: "",
     email: "",
     password: "",
   });
@@ -35,7 +35,7 @@ const Signup = () => {
   const resetData = () => {
     setData({
       name: "",
-      contactNumber: "",
+      phone: "",
       email: "",
       password: "",
     });
@@ -59,7 +59,7 @@ const Signup = () => {
         toast.success("User is successfully registered!!");
         setData({
           name: "",
-          contactNumber: "",
+          phone: "",
           email: "",
           password: "",
         });
@@ -131,15 +131,15 @@ const Signup = () => {
                 {/* Contact Field */}
 
                 <FormGroup>
-                  <Label for="contactNumber" style={{ color: "#22283f" }}>
+                  <Label for="phone" style={{ color: "#22283f" }}>
                     Contact Number
                   </Label>
                   <Input
                     type="tel"
                     placeholder="Enter here"
-                    id="contactNumber"
-                    onChange={(e) => handleChange(e, "contactNumber")}
-                    value={data.contactNumber}
+                    id="phone"
+                    onChange={(e) => handleChange(e, "phone")}
+                    value={data.phone}
                     required
                     minLength={10}
                     maxLength={10}
